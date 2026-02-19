@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validator.c                                        :+:      :+:    :+:   */
+/*   validate_parse.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: katakaha <katakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 12:43:54 by katakaha          #+#    #+#             */
-/*   Updated: 2026/02/17 21:01:10 by katakaha         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:59:41 by katakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	is_int(const char *str)
  * @return int True or false
  */
 
-static int	no_duplicate(int *args, int arg, size_t count)
+static int	no_duplicate(const int *args, const int arg, const size_t count)
 {
 	size_t	i;
 
@@ -72,37 +72,48 @@ static int	no_duplicate(int *args, int arg, size_t count)
 	return (1);
 }
 
-int	*ps_validation(char **argv, int argc)
+/**
+ * @brief Checks if int then checks if there are no duplicates. Only then will
+ * @brief it add to the validated array. NULL means error. Parent must handle.
+ * @brief Does not handle no arguments. Parent must handle.
+ * 
+ * @param argv Input arguments
+ * @param argc Argument count
+ * @return int* The validated ints in an array or NULL
+ */
+
+t_stack	ps_parse(const char **argv, int argc)
 {
-	static int	clean_nums[500];
 	int			conv;
 	int			i;
 	size_t		count;
+	t_stack		stack_a;
 
-	i = 0;
+	i = 1;
 	count = 0;
+	stack_a.count = 0;
 	while (i < argc)
 	{
-		if (is_int(argv[i]))
-		{
-			conv = my_atoi(argv[i]);
-			if (!no_duplicate(clean_nums, conv, count))
-				return (NULL);
-			clean_nums[count] = conv;
-			count++;
-		}
+		if (!is_int(argv[i]))
+			return (stack_a);
+		conv = my_atoi(argv[i]);
+		if (!no_duplicate(stack_a.stack, conv, count))
+			return (stack_a);
+		stack_a.stack[count] = conv;
+		count++;
 		i++;
 	}
-	return (clean_nums);
+	stack_a.count = count;
+	return (stack_a);
 }
 
-int test_dup(void) {
-	int arr[] = {1,2,3,4};
-	return (no_duplicate(arr, 4, 4));
+size_t test_clean(int argc, const char **argv){
+	return (ps_parse(argv, argc).count);
 }
 
-int main(void) {
-	if (test_dup())
+int main(int argc, const char **argv){
+	size_t	res;
+	if ((res = test_clean(argc, argv)))
 		printf("Pass\n");
 	else
 		printf("Fail\n");

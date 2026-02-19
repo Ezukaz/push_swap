@@ -6,7 +6,7 @@
 /*   By: katakaha <katakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 17:24:56 by katakaha          #+#    #+#             */
-/*   Updated: 2026/02/17 20:52:00 by katakaha         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:59:16 by katakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,15 @@ typedef struct s_endpoints
 	t_deque	*tail;
 }			t_endpoints;
 
-int		my_atoi(const char *str);
-int		**ps_parse(char **arg);
-t_deque	*dq_new_node(int nbr);
+typedef struct s_stack
+{
+	int		stack[500];
+	size_t	count;
+}			t_stack;
+
+long	my_atoi(const char *str);
+t_deque	*dq_new_node(const int nbr);
 void	dq_deqadd_back(t_endpoints **dq, t_deque *new_node);
 void	dq_deqclear(t_deque **head);
+t_stack	ps_parse(const char **argv, int argc);
 #endif

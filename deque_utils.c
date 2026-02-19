@@ -6,13 +6,13 @@
 /*   By: katakaha <katakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 17:50:07 by katakaha          #+#    #+#             */
-/*   Updated: 2026/02/17 18:39:27 by katakaha         ###   ########.fr       */
+/*   Updated: 2026/02/19 13:55:45 by katakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_deque	*dq_new_node(int nbr)
+t_deque	*dq_new_node(const int nbr)
 {
 	t_deque	*new_node;
 
