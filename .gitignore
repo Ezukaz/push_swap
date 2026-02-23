@@ -1,6 +1,6 @@
+*.d
 *.o
 a.out
 build/
-logs/
 .vscode/
-docs/
+test

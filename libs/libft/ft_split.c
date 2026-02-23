@@ -23,11 +23,6 @@ static void	*free_all(char **bad_array, size_t index)
 	return (NULL);
 }
 
-static int	is_whitespace(unsigned char c)
-{
-	return (c == '\t' || c == '\n' || c == ' ' || c == '\v' || c == '\f' || c == '\r');
-}
-
 static size_t	count_words(char *str)
 {
 	size_t	i;
@@ -37,11 +32,11 @@ static size_t	count_words(char *str)
 	count = 0;
 	while (str[i] != '\0')
 	{
-		while (str[i] && is_whitespace(str[i])) // str[i]のチェックはいらないが、後でwhitespaceに'\0'が追加されたらのディフェンシブプログラミング用
+		while (str[i] && ft_iswhitespace(str[i])) // str[i]のチェックはいらないが、後でwhitespaceに'\0'が追加されたらのディフェンシブプログラミング用
 			i++;
-		if (str[i] && !is_whitespace(str[i])) // ここと下は必要
+		if (str[i] && !ft_iswhitespace(str[i])) // ここと下は必要
 			count++;
-		while (str[i] && !is_whitespace(str[i]))
+		while (str[i] && !ft_iswhitespace(str[i]))
 			i++;
 	}
 	return (count);
@@ -55,7 +50,7 @@ static char	*get_next_word(char *str, size_t *len)
 
 	i = 0;
 	j = 0;
-	while (str[i] && !is_whitespace(str[i]))
+	while (str[i] && !ft_iswhitespace(str[i]))
 		i++;
 	*len = i;
 	next_word = malloc(i + 1);
@@ -84,7 +79,7 @@ char	**ft_split(char *str)
 		return (NULL);
 	while (*str != '\0')
 	{
-		while (is_whitespace(*str))
+		while (ft_iswhitespace(*str))
 			str++;
 		if (*str != '\0')
 		{
