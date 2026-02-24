@@ -33,7 +33,7 @@ static void	insert_sort(t_stack *stack_a, t_stack *stack_b)
 	int	i;
 	int	j;
 
-	ps_operator("pb", &stack_a, &stack_b);
+	ps_operator("pb", stack_a, stack_b);
 	i = 0;
 	while (i < stack_a->count)
 	{

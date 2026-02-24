@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Ezukaz <katakaha@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: katakaha <katakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 18:04:44 by katakaha          #+#    #+#             */
-/*   Updated: 2026/02/24 00:40:26 by Ezukaz           ###   ########.fr       */
+/*   Updated: 2026/02/24 13:31:23 by katakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  * @note Validate the string is a number before passing to atoi
  */
 
-long	my_atoi(const char *str)
+long	my_atol(const char *str)
 {
 	int		i;
 	int		flag;

@@ -26,6 +26,7 @@ isalpha \
 isascii \
 isdigit \
 isprint \
+iswhitespace \
 memchr \
 memcmp \
 memcpy \

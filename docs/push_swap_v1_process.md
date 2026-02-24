@@ -139,7 +139,7 @@ push_swap/
 | Ex | ~~2026-02-11~~ | ~~Parsing~~ | ~~Array~~ | ~~Speed tests 2x faster~~ | ~~Scale risk~~ | ~~Token array~~ | ~~parse_input()~~ |
 | | 2026-2-13 | Parsing | list | Array is impossible as  it needs to store INT_MAX amount of values | Slightly slower check | check list from start till end or found | ps_parse() |
 || 2026-02-19 | Parsing | array | Array is possible with memmove | None at the moment. This is what memmove was made for | Save the head or tail, shift everything else to the side, place the saved value in the vacant space | rotation |
-|||||||||
+|| 2026-02-22 | Operations | Three op funcs and one controller | Scalability | Might be a little tricky to read | Controller uses ifs to decide what string literal uses what function | operations.c |
 |||||||||
 |||||||||
 |||||||||
@@ -158,7 +158,7 @@ push_swap/
 |      | Date | Symptom | Fix |
 |------|------|---------|-----|
 | Ex | 2026-02-12 | Valgrind "invalid read" on spaces | `while (isspace((unsigned char)*str)) str++;` |
-|| 2026-02-19 | int overflow not detected | my_atoi to return long |
+|| 2026-02-19 | int overflow not detected | my_atol to return long |
 || 2026-02-19 | non numbers did not return NULL | changed is_int to !is_int check |
 |||||
 |||||
@@ -198,7 +198,7 @@ push_swap/
 |------|------|-------|
 | Ex | 2026-02-12 | Was a long struggle |
 | Validator | 2026-02-19 | Test passed smoothly |
-||||
+| validate_parse | 2026-02-22 | parsing tests complete |
 ||||
 ||||
 ||||
@@ -219,8 +219,8 @@ push_swap/
 | ~~2026-02-12~~ | ~~Ex.Confirmation~~ | ~~How large is INT_MAX?~~ |
 | 2026-02-19 | Good practice habits | Should I add const before ints? |
 | 2026-02-19 | Word meaning | What is standard error? |
-||||
-||||
+| 2026-02-22 | Int / size_t / unsigned char | When should variables or parameters be int, unsigned char, or size_t? |
+| 2026-02-24 | Sorting strategy | Should I research sorting methods or make one myself? |
 ||||
 ||||
 ||||

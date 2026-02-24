@@ -37,7 +37,7 @@ typedef struct s_stack
 	size_t	count;
 }			t_stack;
 
-long	my_atoi(const char *str);
+long	my_atol(const char *str);
 t_deque	*dq_new_node(const int nbr);
 void	dq_deqadd_back(t_endpoints **dq, t_deque *new_node);
 void	dq_deqclear(t_deque **head);

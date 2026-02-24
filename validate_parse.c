@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_parse.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Ezukaz <katakaha@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: katakaha <katakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 12:43:54 by katakaha          #+#    #+#             */
-/*   Updated: 2026/02/23 17:09:01 by Ezukaz           ###   ########.fr       */
+/*   Updated: 2026/02/24 15:48:27 by katakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	is_int(const char *str)
 			return (0);
 		i++;
 	}
-	overflow_check = my_atoi(str);
+	overflow_check = my_atol(str);
 	if (overflow_check > INT_MAX || overflow_check < INT_MIN)
 		return (0);
 	return (1);
@@ -99,14 +99,11 @@ static int	no_duplicate(const int *args, const int arg, const size_t count)
 
 static char	**arg_format(char **argv)
 {
-	char	**split_args;
-	char	**res;
-	int		i;
-	int		count;
+	char		**split_args;
+	static char	*res[512];
+	int			i;
+	int			count;
 
-	res = malloc(500 * sizeof(char *));
-	if (!res)
-		return (NULL);
 	i = 1;
 	count = 0;
 	while (argv[i])
@@ -129,12 +126,14 @@ static char	**arg_format(char **argv)
 
 /**
  * @brief Checks if int then checks if there are no duplicates. Only then will
- * @brief it add to the validated array. 0 count means invalid array. Parent must handle.
+ * @brief it add to the validated array. 0 count means invalid array. Parent
+ * @brief must handle.
  * @brief Does not handle no arguments. Parent must handle.
  * 
  * @param argv Input arguments
  * @param argc Argument count
- * @return t_stack Validated struct which contains ints in an array and the count of values in the array. Count stays 0 until all arguments are validated.
+ * @return t_stack Validated struct which contains ints in an array and the
+ * @return count of values in the array. On error, an empty struct is returned
  */
 
 t_stack	ps_parse(char **argv)
@@ -153,7 +152,7 @@ t_stack	ps_parse(char **argv)
 	{
 		if (!is_int(stack_a[i]))
 			return (ERROR_STACK);
-		conv = my_atoi(stack_a[i]);
+		conv = my_atol(stack_a[i]);
 		if (!no_duplicate(sanitized_a.stack, conv, sanitized_a.count))
 			return (ERROR_STACK);
 		sanitized_a.stack[sanitized_a.count++] = conv;

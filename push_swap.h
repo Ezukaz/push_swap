@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Ezukaz <katakaha@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: katakaha <katakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 17:24:56 by katakaha          #+#    #+#             */
-/*   Updated: 2026/02/24 00:40:59 by Ezukaz           ###   ########.fr       */
+/*   Updated: 2026/02/24 15:47:55 by katakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 # include <unistd.h> // write, read
 # include <stdlib.h> // malloc, free, exit
 # include <limits.h> // INT_MAX, INT_MIN
-# define ERROR_STACK ((t_stack))
+# define ERROR_STACK ((t_stack){0})
 
 typedef struct s_stack
 {
-	int		stack[500];
+	int		stack[512];
 	size_t	count;
 }			t_stack;
 
-long	my_atoi(const char *str);
+long	my_atol(const char *str);
 t_stack	ps_parse(char **argv);
 void	ps_operator(const char *op, t_stack *stack_a, t_stack *stack_b);
 #endif

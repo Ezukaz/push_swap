@@ -14,7 +14,8 @@
 #include "libft.h"
 
 /**
-* @brief Forward or reverse rotation of stack depending on whether dest is larger than src
+* @brief Forward or reverse rotation of stack depending on whether dest is
+* @brief larger than src
 *
 * @param stack Stack to rotate
 * @param dest Pointer to where you want to move(Eg.+ 1 from src for rev rot)
@@ -56,7 +57,8 @@ static void	push(t_stack *from_stack, t_stack *to_stack)
 	if (!from_stack || !to_stack || from_stack->count == 0)
 		return ;
 	a_b = from_stack->stack[0];
-	ft_memmove(from_stack->stack, from_stack->stack + 1, from_stack->count * sizeof(int));
+	ft_memmove(from_stack->stack,
+		from_stack->stack + 1, from_stack->count * sizeof(int));
 	--(from_stack->count);
 	ft_memmove(to_stack->stack + 1, to_stack->stack, to_stack->count * sizeof(int));
 	to_stack->stack[0] = a_b;
@@ -83,7 +85,8 @@ static void	swap(t_stack *stack)
 }
 
 /**
- * @brief Decides which helper to call on depending on what op is, and then writes op
+ * @brief Decides which helper to call on depending on what op is, and then
+ * @brief writes op. ft_strncmp to compare op to string literal
  * 
  * @param op String with the operation command
  * @param stack_a Stack A
@@ -96,24 +99,25 @@ void	ps_operator(const char *op, t_stack *stack_a, t_stack *stack_b)
 {
 	size_t	op_len;
 
-	if (op == "sa" || op == "ss")
-		swap(&stack_a);
-	if (op == "sb" || op == "ss")
-		swap(&stack_b);
-	if (op == "pa")
-		push(&stack_b, &stack_a);
-	if (op == "pb")
-		push(&stack_a, &stack_b);
-	if (op == "ra" || op == "rr")
-		rotation(&stack_a, &stack_a, &stack_a + 1);
-	if (op == "rb" || op == "rr")
-		rotation(&stack_b, &stack_b, &stack_b + 1);
-	if (op == "rra" || op == "rrr")
-		rotation(&stack_a, &stack_a + 1, &stack_a);
-	if (op == "rb" || op == "rrr")
-		rotation(&stack_b, &stack_b + 1, &stack_b);
-	op_len = strlen(op);
-	write(1, &op, op_len);
+	if (!ft_strncmp(op, "sa", 2) || !ft_strncmp(op, "ss", 2))
+		swap(stack_a);
+	if (!ft_strncmp(op, "sb", 2) || !ft_strncmp(op, "ss", 2))
+		swap(stack_b);
+	if (!ft_strncmp(op, "pa", 2))
+		push(stack_b, stack_a);
+	if (!ft_strncmp(op, "pb", 2))
+		push(stack_a, stack_b);
+	if (!ft_strncmp(op, "ra", 2) || !ft_strncmp(op, "rr", 2))
+		rotation(stack_a, stack_a->stack, stack_a->stack + 1);
+	if (!ft_strncmp(op, "rb", 2) || !ft_strncmp(op, "rr", 2))
+		rotation(stack_b, stack_b->stack, stack_b->stack + 1);
+	if (!ft_strncmp(op, "rra", 3) || !ft_strncmp(op, "rrr", 3))
+		rotation(stack_a, stack_a->stack + 1, stack_a->stack);
+	if (!ft_strncmp(op, "rrb", 3) || !ft_strncmp(op, "rrr", 3))
+		rotation(stack_b, stack_b->stack + 1, stack_b->stack);
+	op_len = ft_strlen(op);
+	write(1, op, op_len);
+	write(1, "\n", 1);
 }
 
 // #include <stdio.h>
@@ -145,48 +149,48 @@ void	ps_operator(const char *op, t_stack *stack_a, t_stack *stack_b)
 
 // 	printf("origin:     ");
 // 	print_stack(stack_a);
-// 	rotation(&stack_a, &stack_a.stack[1], &stack_a.stack[0]);
-// 	rotation(&stack_a, &stack_a.stack[1], &stack_a.stack[0]);
-// 	rotation(&stack_a, &stack_a.stack[1], &stack_a.stack[0]);
-// 	rotation(&stack_a, &stack_a.stack[1], &stack_a.stack[0]);
-// 	rotation(&stack_a, &stack_a.stack[1], &stack_a.stack[0]);
+// 	ps_operator("ra", &stack_a, &stack_b);
+// 	ps_operator("ra", &stack_a, &stack_b);
+// 	ps_operator("ra", &stack_a, &stack_b);
+// 	ps_operator("ra", &stack_a, &stack_b);
+// 	ps_operator("ra", &stack_a, &stack_b);
 // 	printf("rotation A: ");
 // 	print_stack(stack_a);
 // 	printf("rotation B: ");
 // 	print_stack(stack_b);
-// 	push(&stack_a, &stack_b);
-// 	push(&stack_a, &stack_b);
-// 	push(&stack_a, &stack_b);
-// 	push(&stack_a, &stack_b);
-// 	rotation(&stack_a, &stack_a.stack[1], &stack_a.stack[0]);
-// 	rotation(&stack_b, &stack_b.stack[0], &stack_b.stack[1]);
-// 	rotation(&stack_b, &stack_b.stack[0], &stack_b.stack[1]);
-// 	rotation(&stack_b, &stack_b.stack[0], &stack_b.stack[1]);
+// 	ps_operator("pb", &stack_a, &stack_b); 
+// 	ps_operator("pb", &stack_a, &stack_b);
+// 	ps_operator("pb", &stack_a, &stack_b);
+// 	ps_operator("pb", &stack_a, &stack_b);
+// 	ps_operator("ra", &stack_a, &stack_b);
+// 	ps_operator("rrb", &stack_a, &stack_b);
+// 	ps_operator("rrb", &stack_a, &stack_b);
+// 	ps_operator("rrb", &stack_a, &stack_b);
 // 	printf("push A:     ");
 // 	print_stack(stack_a);
 // 	printf("push B:     ");
 // 	print_stack(stack_b);
-// 	swap(&stack_a);
-// 	swap(&stack_b);
-// 	push(&stack_b, &stack_a);
-// 	push(&stack_b, &stack_a);
-// 	push(&stack_b, &stack_a);
-// 	rotation(&stack_b, &stack_b.stack[0], &stack_b.stack[1]);
-// 	rotation(&stack_b, &stack_b.stack[0], &stack_b.stack[1]);
-// 	swap(&stack_b);
-// 	swap(&stack_b);
-// 	push(&stack_b, &stack_a);
-// 	push(&stack_b, &stack_a);
-// 	push(&stack_b, &stack_a);
-// 	push(&stack_b, &stack_a);
-// 	push(&stack_b, &stack_a);
-// 	rotation(&stack_b, &stack_b.stack[0], &stack_b.stack[1]);
-// 	rotation(&stack_b, &stack_b.stack[0], &stack_b.stack[1]);
-// 	rotation(&stack_b, &stack_b.stack[0], &stack_b.stack[1]);
-// 	swap(&stack_b);
-// 	swap(&stack_b);
-// 	swap(&stack_b);
-// 	swap(&stack_b);
+// 	ps_operator("sa", &stack_a, &stack_b);
+// 	ps_operator("sb", &stack_a, &stack_b);
+// 	ps_operator("pa", &stack_a, &stack_b);
+// 	ps_operator("pa", &stack_a, &stack_b);
+// 	ps_operator("pa", &stack_a, &stack_b);
+// 	ps_operator("rrb", &stack_a, &stack_b);
+// 	ps_operator("rrb", &stack_a, &stack_b);
+// 	ps_operator("sb", &stack_a, &stack_b);
+// 	ps_operator("sb", &stack_a, &stack_b);
+// 	ps_operator("pa", &stack_a, &stack_b);
+// 	ps_operator("pa", &stack_a, &stack_b);
+// 	ps_operator("pa", &stack_a, &stack_b);
+// 	ps_operator("pa", &stack_a, &stack_b);
+// 	ps_operator("pa", &stack_a, &stack_b);
+// 	ps_operator("rrb", &stack_a, &stack_b);
+// 	ps_operator("rrb", &stack_a, &stack_b);
+// 	ps_operator("rrb", &stack_a, &stack_b);
+// 	ps_operator("sb", &stack_a, &stack_b);
+// 	ps_operator("sb", &stack_a, &stack_b);
+// 	ps_operator("sb", &stack_a, &stack_b);
+// 	ps_operator("sb", &stack_a, &stack_b);
 // 	printf("swap A:     ");
 // 	print_stack(stack_a);
 // 	printf("swap B:     ");
