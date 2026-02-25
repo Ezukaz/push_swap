@@ -1,40 +1,5 @@
-make the libft before submitting
-makefile of push_swap is to make itself and itself only. it will include the .a of libft
-use size_t if you don't want negatives
-use unsigned char for one byte processing(memory)
-default should be int unless specific reason to change
-the parameters take int because of years of semantics. everything under 4bytes is promoted to int in the parameter anyways, so this is why. people expect to see this. int is just larger and it can handle EOF situations, so for protability and semantic reasons you should do int instead of unsigned char even if you are only handling one byte. now, return values should be in unsigned char but the parameter, go with int
-Summary:
-C Type Rules
+# NOTES FOR PUSH_SWAP
 
-Parameters:
-
-int c for char checks (auto-promotion + convention + EOF safe)
-
-Returns:
-
-int for booleans (0/1)
-
-unsigned char for byte values
-
-size_t for counts
-
-int for everything else
-
-Storage:
-
-char[] for strings (memory)
-
-Why int c params: char→int promotion happens anyway + 40yr standard + universal recognition
-
-Future you decoded.
-
-The index number can be any type. Doesn't really matter. But when we compare it needs to match the other number. So change it accordingly. Default is int as most comparisons are int.
-
-2026/02/23 19:28 Did Tests for parse and operations
-operations had a bug for memmove because i did not pass the third parameter as bytes but number of elements
-
-parse had a major bug because arg_format was returning t_stack which has an array for ints but split returns an array for strings. i solved this by not returning with t_stack and allocated an array. i also forgot to put in normal error checks for split.
-currently the line amount is above 25(26) for arg_format, so i will need to figure something out.
-
-haven't tested my ps_operator yet. planning to make a simple sort (insert) so i can test it.
+ToDo:
+	make the libft before submitting
+	makefile of push_swap is to make itself and itself only. it will include the .a of libft

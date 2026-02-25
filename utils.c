@@ -6,7 +6,7 @@
 /*   By: katakaha <katakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 18:04:44 by katakaha          #+#    #+#             */
-/*   Updated: 2026/02/24 13:31:23 by katakaha         ###   ########.fr       */
+/*   Updated: 2026/02/25 20:08:48 by katakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  * @note Validate the string is a number before passing to atoi
  */
 
-long	my_atol(const char *str)
+long	utl_atol(const char *str)
 {
 	int		i;
 	int		flag;
@@ -41,4 +41,34 @@ long	my_atol(const char *str)
 		i++;
 	}
 	return (result * flag);
+}
+
+int	utl_max_int(t_stack stack)
+{
+	int	max;
+	int	i;
+
+	max = INT_MIN;
+	while (i < stack.count)
+	{
+		if (stack.stack[i] > max)
+			max = stack.stack[i];
+		i++;
+	}
+	return (max);
+}
+
+int	utl_min_int(t_stack stack)
+{
+	int	min;
+	int	i;
+
+	min = INT_MAX;
+	while (i < stack.count)
+	{
+		if (stack.stack[i] < min)
+			min = stack.stack[i];
+		i++;
+	}
+	return (min);
 }

@@ -150,6 +150,9 @@ push_swap/
 | Ex | 2026-02-12 | Valgrind "invalid read" on spaces | `while (isspace((unsigned char)*str)) str++;` |
 || 2026-02-19 | int overflow not detected | my_atol to return long |
 || 2026-02-19 | non numbers did not return NULL | changed is_int to !is_int check |
+|| 2026-02-23 | middle of array was a totally different number from input | memmove processes in bytes. if int is small then no problem but if it goes over one byte then we start to see something strange |
+|| 2026-02-23 | arg_format was returning t_stack which is for ints but arg_format isn't handling ints but strings | made a new static array for strings |
+|| 2026-02-24 | no path for caller of ft_split returning NULL | error check added |
 |||||
 
 ### Tests Log *(Be specific)*
@@ -157,7 +160,9 @@ push_swap/
 | Name | Date | Basic | Full-scale | Edge case | Commands |
 |------|------|-------|------------|-----------|----------|
 | Ex | 2026-02-12 | ✅ | ✅ | ❌ | `make ftest && valgrind ./a.out "$(cat tests/big.txt)"` |
-| Validator |2026-02-19|✅ A good case|✅ Dups & int limits|✅ Non int|`ccw validator.c utils.c ./libs/libft/ft_isdigit.c -o test && ./test`|
+| Validator | 2026-02-19 | ✅ A good case | ✅ Dups & int limits | ✅ Non int | `ccw validator.c utils.c ./libs/libft/ft_isdigit.c -o test && ./test` |
+| Parser | 2026-02-23 | ✅ Just numbers | ❌ Strings with spaces | ✅ No input | `ccw validate_parse.c utils.c ./libs/libft/ft_isdigit.c -o test` |
+| Operator | 2026-02-24 | ✅swap ✅push ❌rotate(i was giving memmove number of elements and not number of bytes) | ❌ Operator(op == "sa" is comparing pointers which will always be false) |  | `ccg operations.c validate_parse.c utils.c libs/libft/libft.a` |
 ||||||||
 
 ### Completed Files

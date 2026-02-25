@@ -6,7 +6,7 @@
 /*   By: katakaha <katakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 12:43:54 by katakaha          #+#    #+#             */
-/*   Updated: 2026/02/24 15:48:27 by katakaha         ###   ########.fr       */
+/*   Updated: 2026/02/25 20:43:17 by katakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,19 +140,19 @@ t_stack	ps_parse(char **argv)
 {
 	int			conv;
 	int			i;
-	char		**stack_a;
+	char		**a;
 	t_stack		sanitized_a;
 
 	i = 0;
 	sanitized_a.count = 0;
-	stack_a = arg_format(argv);
-	if (!stack_a)
+	a = arg_format(argv);
+	if (!a)
 		return (ERROR_STACK);
-	while (stack_a[i])
+	while (a[i])
 	{
-		if (!is_int(stack_a[i]))
+		if (!is_int(a[i]))
 			return (ERROR_STACK);
-		conv = my_atol(stack_a[i]);
+		conv = my_atol(a[i]);
 		if (!no_duplicate(sanitized_a.stack, conv, sanitized_a.count))
 			return (ERROR_STACK);
 		sanitized_a.stack[sanitized_a.count++] = conv;

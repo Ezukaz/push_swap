@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Ezukaz <katakaha@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: katakaha <katakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 18:05:39 by katakaha          #+#    #+#             */
-/*   Updated: 2026/02/23 22:45:28 by Ezukaz           ###   ########.fr       */
+/*   Updated: 2026/02/25 20:43:32 by katakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	main(int argc, char **argv)
 {
-	t_stack	stack_a;
-	t_stack	stack_b;
+	t_stack	a;
+	t_stack	b;
 
 	if (argc < 2)
 		return (0);
-	stack_a = ps_parse(argv);
-	if (stack_a.count == 0)
+	a = ps_parse(argv);
+	if (a.count == 0)
 	{
 		write(2, "Error\n", 6);
 		return (1);

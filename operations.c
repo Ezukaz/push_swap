@@ -89,32 +89,32 @@ static void	swap(t_stack *stack)
  * @brief writes op. ft_strncmp to compare op to string literal
  * 
  * @param op String with the operation command
- * @param stack_a Stack A
- * @param stack_b Stack B
+ * @param a Stack A
+ * @param b Stack B
  * 
  * @note Make sure op is valid
  */
 
-void	ps_operator(const char *op, t_stack *stack_a, t_stack *stack_b)
+void	ps_operator(const char *op, t_stack *a, t_stack *b)
 {
 	size_t	op_len;
 
 	if (!ft_strncmp(op, "sa", 2) || !ft_strncmp(op, "ss", 2))
-		swap(stack_a);
+		swap(a);
 	if (!ft_strncmp(op, "sb", 2) || !ft_strncmp(op, "ss", 2))
-		swap(stack_b);
+		swap(b);
 	if (!ft_strncmp(op, "pa", 2))
-		push(stack_b, stack_a);
+		push(b, a);
 	if (!ft_strncmp(op, "pb", 2))
-		push(stack_a, stack_b);
+		push(a, b);
 	if (!ft_strncmp(op, "ra", 2) || !ft_strncmp(op, "rr", 2))
-		rotation(stack_a, stack_a->stack, stack_a->stack + 1);
+		rotation(a, a->stack, a->stack + 1);
 	if (!ft_strncmp(op, "rb", 2) || !ft_strncmp(op, "rr", 2))
-		rotation(stack_b, stack_b->stack, stack_b->stack + 1);
+		rotation(b, b->stack, b->stack + 1);
 	if (!ft_strncmp(op, "rra", 3) || !ft_strncmp(op, "rrr", 3))
-		rotation(stack_a, stack_a->stack + 1, stack_a->stack);
+		rotation(a, a->stack + 1, a->stack);
 	if (!ft_strncmp(op, "rrb", 3) || !ft_strncmp(op, "rrr", 3))
-		rotation(stack_b, stack_b->stack + 1, stack_b->stack);
+		rotation(b, b->stack + 1, b->stack);
 	op_len = ft_strlen(op);
 	write(1, op, op_len);
 	write(1, "\n", 1);
@@ -139,61 +139,61 @@ void	ps_operator(const char *op, t_stack *stack_a, t_stack *stack_b)
 // {
 // 	if (argc < 2)
 // 		return (0);
-// 	t_stack	stack_a = ps_parse(argv);
-// 	t_stack	stack_b = {0};
-// 	if (stack_a.count == 0)
+// 	t_stack	a = ps_parse(argv);
+// 	t_stack	b = {0};
+// 	if (a.count == 0)
 // 	{
 // 		write(2, "Error\n", 6);
 // 		return (1);
 // 	}
 
 // 	printf("origin:     ");
-// 	print_stack(stack_a);
-// 	ps_operator("ra", &stack_a, &stack_b);
-// 	ps_operator("ra", &stack_a, &stack_b);
-// 	ps_operator("ra", &stack_a, &stack_b);
-// 	ps_operator("ra", &stack_a, &stack_b);
-// 	ps_operator("ra", &stack_a, &stack_b);
+// 	print_stack(a);
+// 	ps_operator("ra", &a, &b);
+// 	ps_operator("ra", &a, &b);
+// 	ps_operator("ra", &a, &b);
+// 	ps_operator("ra", &a, &b);
+// 	ps_operator("ra", &a, &b);
 // 	printf("rotation A: ");
-// 	print_stack(stack_a);
+// 	print_stack(a);
 // 	printf("rotation B: ");
-// 	print_stack(stack_b);
-// 	ps_operator("pb", &stack_a, &stack_b); 
-// 	ps_operator("pb", &stack_a, &stack_b);
-// 	ps_operator("pb", &stack_a, &stack_b);
-// 	ps_operator("pb", &stack_a, &stack_b);
-// 	ps_operator("ra", &stack_a, &stack_b);
-// 	ps_operator("rrb", &stack_a, &stack_b);
-// 	ps_operator("rrb", &stack_a, &stack_b);
-// 	ps_operator("rrb", &stack_a, &stack_b);
+// 	print_stack(b);
+// 	ps_operator("pb", &a, &b); 
+// 	ps_operator("pb", &a, &b);
+// 	ps_operator("pb", &a, &b);
+// 	ps_operator("pb", &a, &b);
+// 	ps_operator("ra", &a, &b);
+// 	ps_operator("rrb", &a, &b);
+// 	ps_operator("rrb", &a, &b);
+// 	ps_operator("rrb", &a, &b);
 // 	printf("push A:     ");
-// 	print_stack(stack_a);
+// 	print_stack(a);
 // 	printf("push B:     ");
-// 	print_stack(stack_b);
-// 	ps_operator("sa", &stack_a, &stack_b);
-// 	ps_operator("sb", &stack_a, &stack_b);
-// 	ps_operator("pa", &stack_a, &stack_b);
-// 	ps_operator("pa", &stack_a, &stack_b);
-// 	ps_operator("pa", &stack_a, &stack_b);
-// 	ps_operator("rrb", &stack_a, &stack_b);
-// 	ps_operator("rrb", &stack_a, &stack_b);
-// 	ps_operator("sb", &stack_a, &stack_b);
-// 	ps_operator("sb", &stack_a, &stack_b);
-// 	ps_operator("pa", &stack_a, &stack_b);
-// 	ps_operator("pa", &stack_a, &stack_b);
-// 	ps_operator("pa", &stack_a, &stack_b);
-// 	ps_operator("pa", &stack_a, &stack_b);
-// 	ps_operator("pa", &stack_a, &stack_b);
-// 	ps_operator("rrb", &stack_a, &stack_b);
-// 	ps_operator("rrb", &stack_a, &stack_b);
-// 	ps_operator("rrb", &stack_a, &stack_b);
-// 	ps_operator("sb", &stack_a, &stack_b);
-// 	ps_operator("sb", &stack_a, &stack_b);
-// 	ps_operator("sb", &stack_a, &stack_b);
-// 	ps_operator("sb", &stack_a, &stack_b);
+// 	print_stack(b);
+// 	ps_operator("sa", &a, &b);
+// 	ps_operator("sb", &a, &b);
+// 	ps_operator("pa", &a, &b);
+// 	ps_operator("pa", &a, &b);
+// 	ps_operator("pa", &a, &b);
+// 	ps_operator("rrb", &a, &b);
+// 	ps_operator("rrb", &a, &b);
+// 	ps_operator("sb", &a, &b);
+// 	ps_operator("sb", &a, &b);
+// 	ps_operator("pa", &a, &b);
+// 	ps_operator("pa", &a, &b);
+// 	ps_operator("pa", &a, &b);
+// 	ps_operator("pa", &a, &b);
+// 	ps_operator("pa", &a, &b);
+// 	ps_operator("rrb", &a, &b);
+// 	ps_operator("rrb", &a, &b);
+// 	ps_operator("rrb", &a, &b);
+// 	ps_operator("sb", &a, &b);
+// 	ps_operator("sb", &a, &b);
+// 	ps_operator("sb", &a, &b);
+// 	ps_operator("sb", &a, &b);
 // 	printf("swap A:     ");
-// 	print_stack(stack_a);
+// 	print_stack(a);
 // 	printf("swap B:     ");
-// 	print_stack(stack_b);
+// 	print_stack(b);
 // 	return (0);
 // }

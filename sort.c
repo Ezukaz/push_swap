@@ -28,19 +28,32 @@ static int	is_sorted(t_stack stack)
 	return (1);
 }
 
-static void	insert_sort(t_stack *stack_a, t_stack *stack_b)
+static void	tiny_sort(t_stack *a)
+{
+	int	max;
+
+	max = utl_max_int(*a);
+	if (a->stack[0] == max)
+		ps_operator("ra", a, NULL);
+	else if (a->stack[1] == max)
+		ps_operator("rra", a, NULL);
+	if (a->stack[0] > a->stack[1])
+		ps_operator("sa", a, NULL);
+}
+
+static void	insert_sort(t_stack *a, t_stack *b)
 {
 	int	i;
 	int	j;
 
-	ps_operator("pb", stack_a, stack_b);
+	ps_operator("pb", a, b);
 	i = 0;
-	while (i < stack_a->count)
+	while (i < a->count)
 	{
 		j = 0;
-		while (j < stack_b->count)
+		while (j < b->count)
 		{
-			if (stack_a->stack[i])
+			if (a->stack[i])
 			j++;
 		}
 		i++;
