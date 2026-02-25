@@ -140,17 +140,7 @@ push_swap/
 | | 2026-2-13 | Parsing | list | Array is impossible as  it needs to store INT_MAX amount of values | Slightly slower check | check list from start till end or found | ps_parse() |
 || 2026-02-19 | Parsing | array | Array is possible with memmove | None at the moment. This is what memmove was made for | Save the head or tail, shift everything else to the side, place the saved value in the vacant space | rotation |
 || 2026-02-22 | Operations | Three op funcs and one controller | Scalability | Might be a little tricky to read | Controller uses ifs to decide what string literal uses what function | operations.c |
-|||||||||
-|||||||||
-|||||||||
-|||||||||
-|||||||||
-|||||||||
-|||||||||
-|||||||||
-|||||||||
-|||||||||
-|||||||||
+|| 2026-02-25 | Sort | Sniffer->Calculator->Brain->Operator | It clicked | Swap_b and Swap_both are useless | Do math to figure out the least costly move | sort()?maybe |
 |||||||||
 
 ### Fixed Bugs Log
@@ -161,16 +151,6 @@ push_swap/
 || 2026-02-19 | int overflow not detected | my_atol to return long |
 || 2026-02-19 | non numbers did not return NULL | changed is_int to !is_int check |
 |||||
-|||||
-|||||
-|||||
-|||||
-|||||
-|||||
-|||||
-|||||
-|||||
-|||||
 
 ### Tests Log *(Be specific)*
 
@@ -178,18 +158,6 @@ push_swap/
 |------|------|-------|------------|-----------|----------|
 | Ex | 2026-02-12 | ✅ | ✅ | ❌ | `make ftest && valgrind ./a.out "$(cat tests/big.txt)"` |
 | Validator |2026-02-19|✅ A good case|✅ Dups & int limits|✅ Non int|`ccw validator.c utils.c ./libs/libft/ft_isdigit.c -o test && ./test`|
-||||||||
-||||||||
-||||||||
-||||||||
-||||||||
-||||||||
-||||||||
-||||||||
-||||||||
-||||||||
-||||||||
-||||||||
 ||||||||
 
 ### Completed Files
@@ -199,17 +167,6 @@ push_swap/
 | Ex | 2026-02-12 | Was a long struggle |
 | Validator | 2026-02-19 | Test passed smoothly |
 | validate_parse | 2026-02-22 | parsing tests complete |
-||||
-||||
-||||
-||||
-||||
-||||
-||||
-||||
-||||
-||||
-||||
 ||||
 
 ### AI Usage
@@ -221,15 +178,7 @@ push_swap/
 | 2026-02-19 | Word meaning | What is standard error? |
 | 2026-02-22 | Int / size_t / unsigned char | When should variables or parameters be int, unsigned char, or size_t? |
 | 2026-02-24 | Sorting strategy | Should I research sorting methods or make one myself? |
-||||
-||||
-||||
-||||
-||||
-||||
-||||
-||||
-||||
+| 2026-02-25 | Sorting strategy | Is the worst case n factorial? ~ Is sort like a math possibility thing? ~ Does the overall logic change from small inputs to larger ones? |
 ||||
 </details>
 
