@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: katakaha <katakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: Ezukaz <katakaha@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 17:24:56 by katakaha          #+#    #+#             */
-/*   Updated: 2026/02/25 20:43:32 by katakaha         ###   ########.fr       */
+/*   Updated: 2026/02/27 00:34:40 by Ezukaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,25 @@ typedef struct s_stack
 	size_t	count;
 }			t_stack;
 
+typedef struct s_cost
+{
+	int		total;
+	int		a;
+	int		b;
+}			t_cost;
+
+typedef struct s_endpoints
+{
+	int		head;
+	int		head_i;
+	int		tail;
+	int		tail_i;
+}			t_endpoints;
+
 long	utl_atol(const char *str);
-int		utl_max_int(t_stack stack);
-int		utl_min_int(t_stack stack);
+int		utl_max(const int *array, const size_t size);
+int		utl_min(const int *array, const size_t size);
+int		utl_inarray(const int val, const t_stack array);
 t_stack	ps_parse(char **argv);
 void	ps_operator(const char *op, t_stack *a, t_stack *b);
 #endif

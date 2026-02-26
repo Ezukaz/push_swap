@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: katakaha <katakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: Ezukaz <katakaha@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 18:04:44 by katakaha          #+#    #+#             */
-/*   Updated: 2026/02/25 20:08:48 by katakaha         ###   ########.fr       */
+/*   Updated: 2026/02/26 19:54:56 by Ezukaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
  * 
  * @param str The string to convert
  * @return int The converted number
+ *
  * @note Validate the string is a number before passing to atoi
  */
 
@@ -43,32 +44,97 @@ long	utl_atol(const char *str)
 	return (result * flag);
 }
 
-int	utl_max_int(t_stack stack)
-{
-	int	max;
-	int	i;
+/**
+ * @brief Finds the largest number of an array
+ * 
+ * @param array Array with ints
+ * @param size Size of the array
+ * @return int Max value of array
+ *
+ * @note Make sure array is initialized
+ */
 
-	max = INT_MIN;
-	while (i < stack.count)
+int	utl_max(const int *array, const size_t size)
+{
+	size_t	i;
+	int			max;
+
+	i = 0;
+	max = array[0];
+	while (i < size)
 	{
-		if (stack.stack[i] > max)
-			max = stack.stack[i];
+		if (array[i] > max)
+			max = array[i];
 		i++;
 	}
 	return (max);
 }
 
-int	utl_min_int(t_stack stack)
-{
-	int	min;
-	int	i;
+/**
+ * @brief Finds the smallest number of an array
+ * 
+ * @param array Array with ints
+ * @param size Size of the array
+ * @return int Smallest value of array
+ *
+ * @note Make sure array is initialized
+ */
 
-	min = INT_MAX;
-	while (i < stack.count)
+int	utl_min(const int *array, const size_t size)
+{
+	size_t	i;
+	int			min;
+
+	i = 0;
+	min = array[0];
+	while (i < size)
 	{
-		if (stack.stack[i] < min)
-			min = stack.stack[i];
+		if (array[i] < min)
+			min = array[i];
 		i++;
 	}
 	return (min);
+}
+
+/**
+ * @brief Searches array for a certain value
+ * 
+ * @param val Value that is being searched for
+ * @param array Array that is being searched
+ * @param size Size of the array
+ * @return int True or false
+ *
+ * @note Make sure array is initialized
+ */
+
+int	utl_inarray(const int val, const int *array, const size_t size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		if (array[i] == val)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+/**
+ * @brief Returns the absolute value
+ * 
+ * @param val Value to check
+ * @return int The absolute value of val
+ *
+ * @note C's abs does not handle INT_MIN overflow which will cause UB
+ * @note I chose the same result, as returning a different type did not seem
+ * @note right for a utils function. Caller must handle INT_MIN separately
+ */
+
+int	utl_abs(int val)
+{
+	if (val < 0)
+		return (-val);
+	return (val);
 }

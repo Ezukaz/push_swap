@@ -32,7 +32,9 @@ static void	tiny_sort(t_stack *a)
 {
 	int	max;
 
-	max = utl_max_int(*a);
+	if (a->count < 2)
+		return ;
+	max = utl_max(a->stack, a->count);
 	if (a->stack[0] == max)
 		ps_operator("ra", a, NULL);
 	else if (a->stack[1] == max)
