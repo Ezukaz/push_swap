@@ -11,27 +11,31 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "libft.h"
 
-static int	getb_pos(int n, t_stack b, int head)
+static int	getb_pos(int n, t_stack b, t_endpoints ends)
 {
 	int	i;
 	int	next;
 
-	if (n > head)
-		return (utl);
+	if (n > ends.head)
+		return (ends.head_i);
+	if (n < ends.tail)
+		return ((ends.tail_i + 1) % b.count);
 	i = 0;
-	while (i < b->count)
+	while (i < b.count)
 	{
-		next = (i + 1) % b->count;
-		if ((n < b->stack[i]) && (n > b->stack[next]))
+		next = (i + 1) % b.count;
+		if ((n < b.stack[i]) && (n > b.stack[next]))
 			return (next);
 		i++;
 	}
 }
 
-static calc_cost()
+static t_cost	calc_cost(int a_i, int b_i, int a_dir, int b_dir)
 {
-	;
+	if (a_dir == REVERSE)
+		;
 }
 
 t_cost	ps_lowest_cost()

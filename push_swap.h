@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Ezukaz <katakaha@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: katakaha <katakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 17:24:56 by katakaha          #+#    #+#             */
-/*   Updated: 2026/02/27 00:34:40 by Ezukaz           ###   ########.fr       */
+/*   Updated: 2026/02/27 13:50:22 by katakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdlib.h> // malloc, free, exit
 # include <limits.h> // INT_MAX, INT_MIN
 # define ERROR_STACK ((t_stack){0})
+# define FORWARD 1
+# define REVERSE -1
 
 typedef struct s_stack
 {
@@ -45,4 +47,5 @@ int		utl_min(const int *array, const size_t size);
 int		utl_inarray(const int val, const t_stack array);
 t_stack	ps_parse(char **argv);
 void	ps_operator(const char *op, t_stack *a, t_stack *b);
+void	ps_upd_ends(t_stack b, t_endpoints *ends, const char *op);
 #endif
