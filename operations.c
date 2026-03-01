@@ -60,7 +60,8 @@ static void	push(t_stack *from_stack, t_stack *to_stack)
 	ft_memmove(from_stack->stack,
 		from_stack->stack + 1, from_stack->count * sizeof(int));
 	--(from_stack->count);
-	ft_memmove(to_stack->stack + 1, to_stack->stack, to_stack->count * sizeof(int));
+	ft_memmove(to_stack->stack + 1, to_stack->stack,
+		to_stack->count * sizeof(int));
 	to_stack->stack[0] = a_b;
 	++(to_stack->count);
 }
