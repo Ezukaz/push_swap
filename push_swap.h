@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Ezukaz <katakaha@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: katakaha <katakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 17:24:56 by katakaha          #+#    #+#             */
-/*   Updated: 2026/03/02 16:37:40 by Ezukaz           ###   ########.fr       */
+/*   Updated: 2026/03/02 22:52:05 by katakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,6 @@ t_stack	ps_parse(char **argv);
 void	ps_perform_op(const int op, t_stack *a, t_stack *b);
 void	ps_upd_bounds(const int op, t_stack *a, t_stack *b);
 void	ps_compare_min(int a_pos, t_min_cost *min,	t_stack a, t_stack b);
+void	ps_do_min(t_min_cost min, t_stack *a, t_stack *b);
+void	ps_sort(t_stack *a, t_stack *b);
 #endif

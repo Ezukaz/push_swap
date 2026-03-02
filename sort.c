@@ -12,16 +12,23 @@
 
 #include "push_swap.h"
 
-static int	is_sorted(t_stack stack)
+/**
+ * @brief A beginning check to see if we need to sort
+ * 
+ * @param a Stack_a
+ * @return int True or false
+ */
+
+static int	is_sorted(t_stack a)
 {
 	int	i;
 
-	if (stack.count <= 1)
+	if (a.count <= 1)
 		return (1);
 	i = 0;
-	while (i < stack.count - 1)
+	while (i < a.count - 1)
 	{
-		if (stack.stack[i] > stack.stack[i + 1])
+		if (a.stack[i] > a.stack[i + 1])
 			return (0);
 		i++;
 	}
@@ -45,11 +52,11 @@ static void	tiny_sort(t_stack *a)
 		return ;
 	max = utl_max(a->stack, a->count);
 	if (a->stack[0] == max)
-		ps_operator(RA , a, NULL);
+		ps_perform_op(RA , a, NULL);
 	else if (a->stack[1] == max)
-		ps_operator(RRA , a, NULL);
+		ps_perform_op(RRA , a, NULL);
 	if (a->stack[0] > a->stack[1])
-		ps_operator(SA , a, NULL);
+		ps_perform_op(SA , a, NULL);
 }
 
 void	ps_sort(t_stack *a, t_stack *b)
@@ -57,15 +64,21 @@ void	ps_sort(t_stack *a, t_stack *b)
 	int			i;
 	t_min_cost	min;
 
+	if (is_sorted(*a))
+		return ;
 	while (a->count > 3)
 	{
 		i = 0;
-		while (i < a.count)
+		while (i < a->count)
 		{
 			ps_compare_min(i, &min, *a, *b);
 			i++;
 		}
-		while ()
-		ps_perform_op(, a, b);
+		ps_do_min(min, a, b);
 	}
+	tiny_sort(a);
+	while (b->count > 0)
+		ps_perform_op(PA, a, b);
+	while (a->stack[0] != )
+		ps_perform_op(RRA, a, b);
 }
