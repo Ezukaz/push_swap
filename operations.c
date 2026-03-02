@@ -39,7 +39,7 @@ static void	rotation(t_stack *stack, int *dest, int *src)
 		stack->stack[0] = tmp;
 	else
 		stack->stack[stack->count - 1] = tmp;
-}
+	}
 
 /**
  * @brief Push from top of stack to top of other stack
@@ -87,7 +87,7 @@ static void	swap(t_stack *stack)
 
 /**
  * @brief Decides which helper to call on depending on what op is, and then
- * @brief writes op. ft_strncmp to compare op to string literal
+ * @brief prints op and updates bounds. ENUM for comparing op strings
  * 
  * @param op String with the operation command
  * @param a Stack A
@@ -96,26 +96,27 @@ static void	swap(t_stack *stack)
  * @note Make sure op is valid
  */
 
-void	ps_operator(const char *op, t_stack *a, t_stack *b)
+void	ps_perform_op(const int op, t_stack *a, t_stack *b)
 {
 	size_t	op_len;
 
-	if (!ft_strncmp(op, "sa", 2) || !ft_strncmp(op, "ss", 2))
+	if (op == SA || op == SS)
 		swap(a);
-	if (!ft_strncmp(op, "sb", 2) || !ft_strncmp(op, "ss", 2))
+	if (op == SB || op == SS)
 		swap(b);
-	if (!ft_strncmp(op, "pa", 2))
+	if (op == PA)
 		push(b, a);
-	if (!ft_strncmp(op, "pb", 2))
+	if (op == PB)
 		push(a, b);
-	if (!ft_strncmp(op, "ra", 2) || !ft_strncmp(op, "rr", 2))
+	if (op == RA || op == RR)
 		rotation(a, a->stack, a->stack + 1);
-	if (!ft_strncmp(op, "rb", 2) || !ft_strncmp(op, "rr", 2))
+	if (op == RB || op == RR)
 		rotation(b, b->stack, b->stack + 1);
-	if (!ft_strncmp(op, "rra", 3) || !ft_strncmp(op, "rrr", 3))
+	if (op == RRA || op == RRR)
 		rotation(a, a->stack + 1, a->stack);
-	if (!ft_strncmp(op, "rrb", 3) || !ft_strncmp(op, "rrr", 3))
+	if (op == RRB || op == RRR)
 		rotation(b, b->stack + 1, b->stack);
+	ps_upd_bounds(op, a, b);
 	op_len = ft_strlen(op);
 	write(1, op, op_len);
 	write(1, "\n", 1);

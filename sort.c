@@ -28,36 +28,44 @@ static int	is_sorted(t_stack stack)
 	return (1);
 }
 
+/**
+ * @brief Sorts <=3 elements in an array
+ * @brief I use this for larger arrays by pushing out until the last 3 are left
+ * 
+ * @param a Stack_a, as this will only used for stack_a
+ *
+ * @note I can make this to be scalable, but maybe later
+ */
+
 static void	tiny_sort(t_stack *a)
 {
 	int	max;
 
-	if (a->count < 2)
+	if (a->count <= 1)
 		return ;
 	max = utl_max(a->stack, a->count);
 	if (a->stack[0] == max)
-		ps_operator("ra", a, NULL);
+		ps_operator(RA , a, NULL);
 	else if (a->stack[1] == max)
-		ps_operator("rra", a, NULL);
+		ps_operator(RRA , a, NULL);
 	if (a->stack[0] > a->stack[1])
-		ps_operator("sa", a, NULL);
+		ps_operator(SA , a, NULL);
 }
 
-static void	insert_sort(t_stack *a, t_stack *b)
+void	ps_sort(t_stack *a, t_stack *b)
 {
-	int	i;
-	int	j;
+	int			i;
+	t_min_cost	min;
 
-	ps_operator("pb", a, b);
-	i = 0;
-	while (i < a->count)
+	while (a->count > 3)
 	{
-		j = 0;
-		while (j < b->count)
+		i = 0;
+		while (i < a.count)
 		{
-			if (a->stack[i])
-			j++;
+			ps_compare_min(i, &min, *a, *b);
+			i++;
 		}
-		i++;
+		while ()
+		ps_perform_op(, a, b);
 	}
 }

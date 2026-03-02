@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   b_headtail_upd.c                                   :+:      :+:    :+:   */
+/*   headtail_upd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Ezukaz <katakaha@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 12:55:20 by katakaha          #+#    #+#             */
-/*   Updated: 2026/03/02 05:18:41 by Ezukaz           ###   ########.fr       */
+/*   Updated: 2026/03/02 15:47:50 by Ezukaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,23 +74,29 @@ static void	upd_push(t_stack *stack)
 }
 
 /**
- * @brief Decides what to update
+ * @brief Decides whether head/tail needs to be updated
  * 
- * @param stack Stack to update
  * @param op Operation command
+ * @param a Stack to update
+ * @param b Stack to update
  */
 
-void	ps_upd_ends(t_stack *stack, const char *op)
+void	ps_upd_bounds(const int op, t_stack *a, t_stack *b)
 {
-	if (!ft_strncmp(op, "sb", 2) || !ft_strncmp(op, "ss", 2))
-	{
-		if (stack->head_i == 0 || stack->head_i == 1)
-			upd_swap(stack->head_i, stack->tail_i, stack->count);
-	}
-	if (!ft_strncmp(op, "rrb", 3) || !ft_strncmp(op, "rrr", 3))
-		upd_rotate(stack, REVERSE);
-	if (!ft_strncmp(op, "rb", 2) || !ft_strncmp(op, "rr", 2))
-		upd_rotate(stack, FORWARD);
-	if (!ft_strncmp(op, "pb", 2))
-		upd_push(stack);
+	if ((op == SB || op == SS) && (b->head_i == 0 || b->head_i == 1))
+			upd_swap(b->head_i, b->tail_i, b->count);
+	if ((op == SA || op == SS) && (a->head_i == 0 || a->head_i == 1))
+			upd_swap(a->head_i, a->tail_i, a->count);
+	if (op == RRB || op == RRR)
+		upd_rotate(b, REVERSE);
+	if (op == RRA || op == RRR)
+		upd_rotate(a, REVERSE);
+	if (op == RB || op == RR)
+		upd_rotate(b, FORWARD);
+	if (op == RA || op == RR)
+		upd_rotate(a, FORWARD);
+	if (op == PB)
+		upd_push(b);
+	if (op == PA)
+		upd_push(a);
 }

@@ -57,13 +57,20 @@ static int	getb_pos(int a_n, t_stack b)
 static t_min_cost	get_cost(int a_cost, int b_cost, int a_dir, int b_dir)
 {
 	t_min_cost	costs;
-	int			total;
 
 	if (a_dir + b_dir)
-		total = ult_max((int[]){a_cost, b_cost}, 2);
+	{
+		costs.total = ult_max((int[]){a_cost, b_cost}, 2);
+		costs.double_op = 0;
+	}
 	else
-		total = a_cost + b_cost;
-	costs.total = total;
+	{
+		costs.total = a_cost + b_cost;
+		if (a_dir = REVERSE)
+			costs.double_op = REVERSE;
+		else
+			costs.double_op = FORWARD;
+	}
 	costs.a = a_cost * a_dir;
 	costs.b = b_cost * b_dir;
 	return (costs);
@@ -78,7 +85,7 @@ static t_min_cost	get_cost(int a_cost, int b_cost, int a_dir, int b_dir)
  * @param b Stack_b with head/tail information
   */
 
-void	ps_lowest_cost(int a_pos, t_min_cost *min,	t_stack a, t_stack b)
+void	ps_compare_min(int a_pos, t_min_cost *min, t_stack a, t_stack b)
 {
 	t_min_cost	tmp;
 	int			b_pos;
