@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Ezukaz <katakaha@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: katakaha <katakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 18:04:44 by katakaha          #+#    #+#             */
-/*   Updated: 2026/02/26 19:54:56 by Ezukaz           ###   ########.fr       */
+/*   Updated: 2026/03/03 18:53:33 by katakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,22 +49,27 @@ long	utl_atol(const char *str)
  * 
  * @param array Array with ints
  * @param size Size of the array
+ * @param max_i Variable to store the index of the largest value
  * @return int Max value of array
  *
  * @note Make sure array is initialized
  */
 
-int	utl_max(const int *array, const size_t size)
+int	utl_max(const int *array, const size_t size, int *max_i)
 {
 	size_t	i;
 	int			max;
 
 	i = 0;
 	max = array[0];
+	*max_i = 0;
 	while (i < size)
 	{
 		if (array[i] > max)
+		{
 			max = array[i];
+			*max_i = i;
+		}
 		i++;
 	}
 	return (max);
@@ -75,22 +80,27 @@ int	utl_max(const int *array, const size_t size)
  * 
  * @param array Array with ints
  * @param size Size of the array
+ * @param min_i Variable to store the index of the smallest value
  * @return int Smallest value of array
  *
  * @note Make sure array is initialized
  */
 
-int	utl_min(const int *array, const size_t size)
+int	utl_min(const int *array, const size_t size, int *min_i)
 {
 	size_t	i;
-	int			min;
+	int		min;
 
 	i = 0;
 	min = array[0];
+	*min_i = 0;
 	while (i < size)
 	{
 		if (array[i] < min)
+		{
 			min = array[i];
+			*min_i = i;
+		}
 		i++;
 	}
 	return (min);

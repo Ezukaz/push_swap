@@ -6,7 +6,7 @@
 /*   By: katakaha <katakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 17:24:56 by katakaha          #+#    #+#             */
-/*   Updated: 2026/03/02 22:52:05 by katakaha         ###   ########.fr       */
+/*   Updated: 2026/03/03 18:37:36 by katakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,17 @@ typedef struct s_min_cost
 	int	double_op;	
 }			t_min_cost;
 
+typedef struct s_smallest3
+{
+	int	min1;
+	int	min2;
+	int	min3;
+}		t_smallest3;
+
 long	utl_atol(const char *str);
-int		utl_max(const int *array, const size_t size);
-int		utl_min(const int *array, const size_t size);
-int		utl_inarray(const int val, const t_stack array);
+int		utl_max(const int *array, const size_t size, int *max_i);
+int		utl_min(const int *array, const size_t size, int *min_i);
+int		utl_inarray(const int val, const int *array, const size_t size);
 int		utl_abs(int val);
 t_stack	ps_parse(char **argv);
 void	ps_perform_op(const int op, t_stack *a, t_stack *b);
