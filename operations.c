@@ -98,7 +98,7 @@ static void	swap(t_stack *stack)
 
 void	ps_perform_op(const int op, t_stack *a, t_stack *b)
 {
-	size_t	op_len;
+	char	**op_str;
 
 	if (op == SA || op == SS)
 		swap(a);
@@ -117,8 +117,8 @@ void	ps_perform_op(const int op, t_stack *a, t_stack *b)
 	if (op == RRB || op == RRR)
 		rotation(b, b->stack + 1, b->stack);
 	ps_upd_bounds(op, a, b);
-	op_len = ft_strlen(op);
-	write(1, op, op_len);
+	op_str = (char *[]){"sa", "sb", "ss", "pa", "pb", "ra", "rb", "rr", "rra", "rrb", "rrr", NULL};
+	write(1, op_str[op], ft_strlen(op_str[op]));
 	write(1, "\n", 1);
 }
 

@@ -26,21 +26,27 @@
 
 static int	getb_pos(int a_n, t_stack b)
 {
-	int	i;
-	int	next;
+	size_t	i;
+	int		next;
 
-	if (a_n > b.stack[b.head_i])
-		return (b.head_i);
-	if (a_n < b.stack[tail_i])
-		return ((b.tail_i + 1) % b.count);
-	i = 0;
-	while (i < b.count)
+	if (b.count <= 1)
+		return (0);
+	else
 	{
-		next = (i + 1) % b.count;
-		if ((a_n < b.stack[i]) && (a_n > b.stack[next]))
-			return (next);
-		i++;
+		if (a_n > b.stack[b.head_i])
+			return (b.head_i);
+		if (a_n < b.stack[b.tail_i])
+			return ((b.tail_i + 1) % b.count);
+		i = 0;
+		while (i < b.count)
+		{
+			next = (i + 1) % b.count;
+			if ((a_n < b.stack[i]) && (a_n > b.stack[next]))
+				break ;
+			i++;
+		}
 	}
+	return (next);
 }
 
 /**
@@ -59,18 +65,9 @@ static t_min_cost	get_cost(int a_cost, int b_cost, int a_dir, int b_dir)
 	t_min_cost	costs;
 
 	if (a_dir + b_dir)
-	{
-		costs.total = ult_max((int[]){a_cost, b_cost}, 2);
-		costs.double_op = 0;
-	}
+		costs.total = utl_max((int[]){a_cost, b_cost}, 2, NULL);
 	else
-	{
 		costs.total = a_cost + b_cost;
-		if (a_dir = REVERSE)
-			costs.double_op = REVERSE;
-		else
-			costs.double_op = FORWARD;
-	}
 	costs.a = a_cost * a_dir;
 	costs.b = b_cost * b_dir;
 	return (costs);

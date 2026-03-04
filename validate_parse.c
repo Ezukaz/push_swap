@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_parse.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: katakaha <katakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: Ezukaz <katakaha@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 12:43:54 by katakaha          #+#    #+#             */
-/*   Updated: 2026/02/25 20:43:17 by katakaha         ###   ########.fr       */
+/*   Updated: 2026/03/04 16:12:05 by Ezukaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	is_int(const char *str)
 			return (0);
 		i++;
 	}
-	overflow_check = my_atol(str);
+	overflow_check = utl_atol(str);
 	if (overflow_check > INT_MAX || overflow_check < INT_MIN)
 		return (0);
 	return (1);
@@ -152,7 +152,7 @@ t_stack	ps_parse(char **argv)
 	{
 		if (!is_int(a[i]))
 			return (ERROR_STACK);
-		conv = my_atol(a[i]);
+		conv = utl_atol(a[i]);
 		if (!no_duplicate(sanitized_a.stack, conv, sanitized_a.count))
 			return (ERROR_STACK);
 		sanitized_a.stack[sanitized_a.count++] = conv;

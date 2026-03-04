@@ -22,7 +22,7 @@
 
 static int	is_sorted(t_stack a)
 {
-	int	i;
+	size_t	i;
 
 	if (a.count <= 1)
 		return (1);
@@ -37,27 +37,37 @@ static int	is_sorted(t_stack a)
 }
 
 /**
- * @brief Sorts <=3 elements in an array
+ * @brief Sorts if <=3 elements in an array
  * @brief I use this for larger arrays by pushing out until the last 3 are left
+ * @brief Also pushes contents of stack_b to stack_a, and final rotations
  * 
  * @param a Stack_a, as this will only used for stack_a
+ * @param b If there are things in stack_b, push them to stack_a
+ * @param sm3 Used for last rotations of smallest 3
  *
  * @note I can make this to be scalable, but maybe later
  */
 
-static void	tiny_sort(t_stack *a)
+static void	tiny_sort(t_stack *a, t_stack *b, const t_smallest3 sm3)
 {
 	int	max;
 
 	if (a->count <= 1)
 		return ;
-	max = utl_max(a->stack, a->count, 0);
+	max = utl_max(a->stack, a->count, NULL);
 	if (a->stack[0] == max)
-		ps_perform_op(RA , a, NULL);
+		ps_perform_op(RA , a, b);
 	else if (a->stack[1] == max)
-		ps_perform_op(RRA , a, NULL);
+		ps_perform_op(RRA , a, b);
 	if (a->stack[0] > a->stack[1])
-		ps_perform_op(SA , a, NULL);
+		ps_perform_op(SA , a, b);
+	while (b->count > 0)
+		ps_perform_op(PA, a, b);
+	if (a->count > 3)
+	{
+		while (a->stack[0] != sm3.min1)
+			ps_perform_op(RRA, a, b);
+	}
 }
 
 /**
@@ -75,15 +85,17 @@ static void	get_3min(t_stack a, t_smallest3 *min3)
 	int	i;
 
 	min3->min1 = utl_min(a.stack, a.count, &i);
-	ft_memmove(a.stack + i, a.stack + i + 1, a.count);
+	ft_memmove(a.stack + i, a.stack + i + 1, a.count * sizeof(int));
 	a.count--;
 	min3->min2 = utl_min(a.stack, a.count, &i);
-	ft_memmove(a.stack + i, a.stack + i + 1, a.count);
+	ft_memmove(a.stack + i, a.stack + i + 1, a.count * sizeof(int));
 	a.count--;
 	min3->min3 = utl_min(a.stack, a.count, &i);
-	ft_memmove(a.stack + i, a.stack + i + 1, a.count);
+	ft_memmove(a.stack + i, a.stack + i + 1, a.count * sizeof(int));
 	a.count--;
 }
+
+
 
 /**
  * @brief Total of six steps to sort a stack
@@ -103,29 +115,26 @@ static void	get_3min(t_stack a, t_smallest3 *min3)
 
 void	ps_sort(t_stack *a, t_stack *b)
 {
-	int			i;
+	size_t		i;
 	t_min_cost	min;
 	t_smallest3	sm3;
 
 	if (is_sorted(*a))
 		return ;
-	get_3min(*a, &sm3);
+	if (a->count > 3)
+		get_3min(*a, &sm3);
+	utl_init_min(&min);
 	while (a->count > 3)
 	{
 		i = 0;
 		while (i < a->count)
 		{
 			if (a->stack[i] != sm3.min1
-				&& a->stack[i] != sm3.min2
-				&& a->stack[i] != sm3.min3)
+				&& a->stack[i] != sm3.min2 && a->stack[i] != sm3.min3)
 				ps_compare_min(i, &min, *a, *b);
 			i++;
 		}
-		ps_do_min(min, a, b);
+		ps_do_min(&min, a, b);
 	}
-	tiny_sort(a);
-	while (b->count > 0)
-		ps_perform_op(PA, a, b);
-	while (a->stack[0] != sm3.min1)
-		ps_perform_op(RRA, a, b);
+	tiny_sort(a, b, sm3);
 }

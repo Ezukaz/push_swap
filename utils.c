@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: katakaha <katakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: Ezukaz <katakaha@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 18:04:44 by katakaha          #+#    #+#             */
-/*   Updated: 2026/03/03 18:53:33 by katakaha         ###   ########.fr       */
+/*   Updated: 2026/03/04 20:40:47 by Ezukaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,19 @@ long	utl_atol(const char *str)
 int	utl_max(const int *array, const size_t size, int *max_i)
 {
 	size_t	i;
-	int			max;
+	int		max;
 
 	i = 0;
 	max = array[0];
-	*max_i = 0;
+	if (max_i)
+		*max_i = 0;
 	while (i < size)
 	{
 		if (array[i] > max)
 		{
 			max = array[i];
-			*max_i = i;
+			if (max_i)
+				*max_i = i;
 		}
 		i++;
 	}
@@ -80,7 +82,8 @@ int	utl_max(const int *array, const size_t size, int *max_i)
  * 
  * @param array Array with ints
  * @param size Size of the array
- * @param min_i Variable to store the index of the smallest value
+ * @param min_i Pointer of int to store the index of the smallest value
+ * @param min_i You can pass NULL if you don't need the index
  * @return int Smallest value of array
  *
  * @note Make sure array is initialized
@@ -93,17 +96,26 @@ int	utl_min(const int *array, const size_t size, int *min_i)
 
 	i = 0;
 	min = array[0];
-	*min_i = 0;
+	if (min_i)
+		*min_i = 0;
 	while (i < size)
 	{
 		if (array[i] < min)
 		{
 			min = array[i];
-			*min_i = i;
+			if (min_i)
+				*min_i = i;
 		}
 		i++;
 	}
 	return (min);
+}
+
+void	utl_init_min(t_min_cost *min)
+{
+	min->total = INT_MAX;
+	min->a = 0;
+	min->b = 0;
 }
 
 /**
@@ -117,19 +129,19 @@ int	utl_min(const int *array, const size_t size, int *min_i)
  * @note Make sure array is initialized
  */
 
-int	utl_inarray(const int val, const int *array, const size_t size)
-{
-	int	i;
+// int	utl_inarray(const int val, const int *array, const size_t size)
+// {
+// 	size_t	i;
 
-	i = 0;
-	while (i < size)
-	{
-		if (array[i] == val)
-			return (1);
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	while (i < size)
+// 	{
+// 		if (array[i] == val)
+// 			return (1);
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 /**
  * @brief Returns the absolute value

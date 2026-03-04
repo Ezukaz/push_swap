@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   do_min.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: katakaha <katakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: Ezukaz <katakaha@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 22:33:56 by katakaha          #+#    #+#             */
-/*   Updated: 2026/03/02 22:52:31 by katakaha         ###   ########.fr       */
+/*   Updated: 2026/03/04 21:21:54 by Ezukaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	symmetrical_rotation(t_min_cost *min, t_stack *a, t_stack *b)
+static void	symmetrical_rot(t_min_cost *min, t_stack *a, t_stack *b)
 {
 		if (min->a < 0 && min->b < 0)
 		{
@@ -28,7 +28,7 @@ static void	symmetrical_rotation(t_min_cost *min, t_stack *a, t_stack *b)
 		}
 }
 
-static void	asymmetrical_rotation(t_min_cost *min, t_stack *a, t_stack *b)
+static void	asymmetrical_rot_rot(t_min_cost *min, t_stack *a, t_stack *b)
 {
 	if (min->a > 0)
 	{
@@ -52,14 +52,29 @@ static void	asymmetrical_rotation(t_min_cost *min, t_stack *a, t_stack *b)
 	}
 }
 
-void	ps_do_min(t_min_cost min, t_stack *a, t_stack *b)
+/**
+ * @brief Executes the rotations that the min struct is storing
+ * 
+ * @param min Struct with the cheapest moves
+ * @param a Stack_a with numbers that we want to move to stack_b
+ * @param b Stack_b receives numbers from stack_a, and puts them in order
+ *
+ * @note The last if statement is for an edge case. When there is only one value
+ * @note 	in stack_b, we cannot adjust to the right position by rotating. So
+ * @note 	we push, and then see if we need to realign it by rotating it once
+ */
+
+void	ps_do_min(t_min_cost *min, t_stack *a, t_stack *b)
 {
-	while (min.a || min.b)
+	while (min->a || min->b)
 	{
-		if (min.a * min.b > 0)
-			symmetrical_rotation(&min, a, b);
+		if (min->a * min->b > 0)
+			symmetrical_rot(min, a, b);
 		else
-			asymmetrical_rotation(&min, a, b);
+			asymmetrical_rot(min, a, b);
 	}
 	ps_perform_op(PB, a, b);
+	if (b->count == 2 && b->stack[0] < b->stack[1])
+		ps_perform_op(SB, a, b);
+	min->total = INT_MAX;
 }
