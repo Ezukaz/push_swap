@@ -85,17 +85,24 @@ static void	get_3min(t_stack a, t_smallest3 *min3)
 	int	i;
 
 	min3->min1 = utl_min(a.stack, a.count, &i);
-	ft_memmove(a.stack + i, a.stack + i + 1, a.count * sizeof(int));
+	ft_memmove(a.stack + i, a.stack + i + 1, (a.count - i - 1) * sizeof(int));
 	a.count--;
 	min3->min2 = utl_min(a.stack, a.count, &i);
-	ft_memmove(a.stack + i, a.stack + i + 1, a.count * sizeof(int));
+	ft_memmove(a.stack + i, a.stack + i + 1, (a.count - i - 1) * sizeof(int));
 	a.count--;
 	min3->min3 = utl_min(a.stack, a.count, &i);
-	ft_memmove(a.stack + i, a.stack + i + 1, a.count * sizeof(int));
+	ft_memmove(a.stack + i, a.stack + i + 1, (a.count - i - 1) * sizeof(int));
 	a.count--;
 }
 
+static void	rotateb_tohead(t_stack *b, t_stack *a)
+{
+	int	rounds;
 
+	rounds = b->head_i;
+	while (rounds--)
+		ps_perform_op(RB, a, b);
+}
 
 /**
  * @brief Total of six steps to sort a stack
@@ -130,11 +137,13 @@ void	ps_sort(t_stack *a, t_stack *b)
 		while (i < a->count)
 		{
 			if (a->stack[i] != sm3.min1
-				&& a->stack[i] != sm3.min2 && a->stack[i] != sm3.min3)
+				&& a->stack[i] != sm3.min2
+				&& a->stack[i] != sm3.min3)
 				ps_compare_min(i, &min, *a, *b);
 			i++;
 		}
 		ps_do_min(&min, a, b);
 	}
+	rotateb_tohead(b, a);
 	tiny_sort(a, b, sm3);
 }

@@ -15,7 +15,7 @@
 
 /**
 * @brief Forward or reverse rotation of stack depending on whether dest is
-* @brief larger than src
+* @brief larger than src. Updates head/tail i
 *
 * @param stack Stack to rotate
 * @param dest Pointer to where you want to move(Eg.+ 1 from src for rev rot)
@@ -24,7 +24,7 @@
 * @note If stack is NULL or contents of stack is less than 2, it will do nothing
 */
 
-static void	rotation(t_stack *stack, int *dest, int *src)
+static void	rotation(t_stack *stack, int *dest, int *src, int dir)
 {
 	int	tmp;
 
@@ -39,10 +39,37 @@ static void	rotation(t_stack *stack, int *dest, int *src)
 		stack->stack[0] = tmp;
 	else
 		stack->stack[stack->count - 1] = tmp;
+	stack->head_i = (stack->head_i + stack->count + dir) % stack->count;
+	stack->tail_i = (stack->tail_i + stack->count + dir) % stack->count;
 	}
 
+static void	upd_push_headtail(t_stack *to_stack)
+{
+	if (to_stack->count > 1)
+	{
+		if (to_stack->head_i == 0)
+		{
+			if (to_stack->stack[0] > to_stack->stack[1])
+			{
+				to_stack->head_i = 0;
+				to_stack->tail_i++;
+			}
+			else if (to_stack->stack[0] < to_stack->stack[1])
+			{
+				to_stack->tail_i = 0;
+				to_stack->head_i++;
+			}
+		}
+		else
+		{
+			to_stack->head_i++;
+			to_stack->tail_i++;
+		}
+	}
+}
+
 /**
- * @brief Push from top of stack to top of other stack
+ * @brief Push from top of stack to top of other stack & updates head/tail i
  * 
  * @param from_stack Stack to push from
  * @param to_stack Stack to push to
@@ -52,22 +79,23 @@ static void	rotation(t_stack *stack, int *dest, int *src)
 
 static void	push(t_stack *from_stack, t_stack *to_stack)
 {
-	int	a_b;
+	int	tmp;
 	
 	if (!from_stack || !to_stack || from_stack->count == 0)
 		return ;
-	a_b = from_stack->stack[0];
-	ft_memmove(from_stack->stack,
-		from_stack->stack + 1, from_stack->count * sizeof(int));
+	tmp = from_stack->stack[0];
+	ft_memmove(from_stack->stack, from_stack->stack + 1,
+		from_stack->count * sizeof(int));
 	--(from_stack->count);
 	ft_memmove(to_stack->stack + 1, to_stack->stack,
 		to_stack->count * sizeof(int));
-	to_stack->stack[0] = a_b;
+	to_stack->stack[0] = tmp;
 	++(to_stack->count);
+	upd_push_headtail(to_stack);
 }
 
 /**
- * @brief Swap the first two elements of stack
+ * @brief Swap the first two elements of stack & might update head/tail i
  * 
  * @param stack Stack to swap
  * 
@@ -83,6 +111,10 @@ static void	swap(t_stack *stack)
 	tmp = stack->stack[0];
 	stack->stack[0] = stack->stack[1];
 	stack->stack[1] = tmp;
+	if (stack->head_i == 0 || stack->head_i == 1)
+		stack->head_i = (stack->head_i + 1) % 2;
+	if (stack->tail_i == 0 || stack->tail_i == 1)
+		stack->tail_i = (stack->tail_i + 1) % 2;
 }
 
 /**
@@ -109,14 +141,13 @@ void	ps_perform_op(const int op, t_stack *a, t_stack *b)
 	if (op == PB)
 		push(a, b);
 	if (op == RA || op == RR)
-		rotation(a, a->stack, a->stack + 1);
+		rotation(a, a->stack, a->stack + 1, FORWARD);
 	if (op == RB || op == RR)
-		rotation(b, b->stack, b->stack + 1);
+		rotation(b, b->stack, b->stack + 1, FORWARD);
 	if (op == RRA || op == RRR)
-		rotation(a, a->stack + 1, a->stack);
+		rotation(a, a->stack + 1, a->stack, REVERSE);
 	if (op == RRB || op == RRR)
-		rotation(b, b->stack + 1, b->stack);
-	ps_upd_bounds(op, a, b);
+		rotation(b, b->stack + 1, b->stack, REVERSE);
 	op_str = (char *[]){"sa", "sb", "ss", "pa", "pb", "ra", "rb", "rr", "rra", "rrb", "rrr", NULL};
 	write(1, op_str[op], ft_strlen(op_str[op]));
 	write(1, "\n", 1);

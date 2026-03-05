@@ -1,5 +1,0 @@
-# NOTES FOR PUSH_SWAP
-
-ToDo:
-	make the libft before submitting
-	makefile of push_swap is to make itself and itself only. it will include the .a of libft

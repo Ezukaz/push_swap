@@ -6,7 +6,7 @@
 /*   By: Ezukaz <katakaha@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 12:55:20 by katakaha          #+#    #+#             */
-/*   Updated: 2026/03/04 21:45:59 by Ezukaz           ###   ########.fr       */
+/*   Updated: 2026/03/05 10:37:53 by Ezukaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,21 +56,21 @@ static void	upd_rotate(t_stack *stack, int dir)
 
 static void	upd_push(t_stack *stack)
 {
-		if (stack->stack[0] > stack->stack[stack->head_i])
-		{
-			stack->head_i = 0;
-			stack->tail_i++;
-		}
-		else if (stack->stack[0] < stack->stack[stack->tail_i])
-		{
-			stack->tail_i = 0;
-			stack->head_i++;
-		}
-		else
-		{
-			stack->head_i++;
-			stack->tail_i++;
-		}
+	if (stack->stack[0] > stack->stack[stack->head_i + 1])
+	{
+		stack->head_i = 0;
+		stack->tail_i++;
+	}
+	else if (stack->stack[0] < stack->stack[stack->tail_i + 1])
+	{
+		stack->tail_i = 0;
+		stack->head_i++;
+	}
+	else
+	{
+		stack->head_i++;
+		stack->tail_i++;
+	}
 }
 
 /**

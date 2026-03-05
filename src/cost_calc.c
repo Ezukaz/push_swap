@@ -33,10 +33,8 @@ static int	getb_pos(int a_n, t_stack b)
 		return (0);
 	else
 	{
-		if (a_n > b.stack[b.head_i])
+		if (a_n > b.stack[b.head_i] || a_n < b.stack[b.tail_i])
 			return (b.head_i);
-		if (a_n < b.stack[b.tail_i])
-			return ((b.tail_i + 1) % b.count);
 		i = 0;
 		while (i < b.count)
 		{

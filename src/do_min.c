@@ -6,7 +6,7 @@
 /*   By: Ezukaz <katakaha@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 22:33:56 by katakaha          #+#    #+#             */
-/*   Updated: 2026/03/04 21:21:54 by Ezukaz           ###   ########.fr       */
+/*   Updated: 2026/03/05 09:54:39 by Ezukaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	symmetrical_rot(t_min_cost *min, t_stack *a, t_stack *b)
 		}
 }
 
-static void	asymmetrical_rot_rot(t_min_cost *min, t_stack *a, t_stack *b)
+static void	asymmetrical_rot(t_min_cost *min, t_stack *a, t_stack *b)
 {
 	if (min->a > 0)
 	{

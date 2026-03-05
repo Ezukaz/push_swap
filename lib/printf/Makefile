@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: katakaha <katakaha@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: Ezukaz <katakaha@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/17 12:11:15 by katakaha          #+#    #+#              #
-#    Updated: 2026/01/16 18:17:22 by katakaha         ###   ########.fr        #
+#    Updated: 2026/03/05 19:02:12 by Ezukaz           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ AR		= ar
 ARFLAGS	= rcs
 
 SRCDIR	= srcs
-LIBDIR	= $(SRCDIR)/libft
 INCDIR	= incs
 OBJDIR	= objs
 
@@ -25,10 +24,7 @@ SRCS	= $(addprefix ft_, $(addsuffix .c, \
 	printf \
 	printf_utils \
 	specifier_funcs_hex \
-	specifier_funcs_puts)) \
-	$(addprefix ft_, $(addsuffix .c, \
-	strchr \
-	strlen))
+	specifier_funcs_puts))
 
 OBJS	= $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
 
@@ -39,9 +35,6 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(AR) $(ARFLAGS) $(NAME) $(OBJS)
 
-$(OBJDIR)/%.o: $(LIBDIR)/%.c
-	@mkdir -p $(OBJDIR)
-	$(CC) $(CFLAGS) $(IFLAGS) -MMD -c $< -o $@
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(OBJDIR)
 	$(CC) $(CFLAGS) $(IFLAGS) -MMD -c $< -o $@
