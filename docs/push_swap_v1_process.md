@@ -131,8 +131,7 @@ push_swap/
 
 ### Flow Chart
 
-
-
+![pushswap_flowchart](./push_swap_flowchart.png)
 
 </details>
 
