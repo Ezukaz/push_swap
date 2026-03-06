@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: Ezukaz <katakaha@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/03/05 17:06:25 by Ezukaz            #+#    #+#              #
-#    Updated: 2026/03/05 17:06:25 by Ezukaz           ###   ########.fr        #
+#    Created: 2026/03/05 20:49:15 by Ezukaz            #+#    #+#              #
+#    Updated: 2026/03/05 20:49:15 by Ezukaz           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,14 +28,16 @@ LIBFT		= $(LIBFTDIR)/libft.a
 #PRINTF		= $(PRINTFDIR)/printf.a
 
 # Project files
-SRC		= $(addprefix $(SRCDIR)/, $(addsuffix .c, \
+SRC		= $(addsuffix .c, \
+			arg_format \
 			validate_parse \
 			operations \
 			cost_calc \
 			do_min \
 			sort \
 			utils \
-			main))
+			main)
+
 OBJ		= $(addprefix $(OBJDIR)/, $(SRC:.c=.o))
 DEP		= $(OBJ:.o=.d)
 
@@ -73,10 +75,13 @@ $(LIBFT):
 
 clean:
 # Since the dependency files also live in $(OBJDIR) they will be removed as well. Just what we want
+# Must remember to clean up Libft as well (wink)
 	$(RM) $(OBJDIR)
+	$(MAKE) -C $(LIBFTDIR) clean
 
 fclean: clean
 	$(RM) $(NAME)
+	$(MAKE) -C $(LIBFTDIR) fclean
 
 re: fclean
 	$(MAKE) all

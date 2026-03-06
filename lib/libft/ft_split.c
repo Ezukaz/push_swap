@@ -32,9 +32,9 @@ static size_t	count_words(char *str)
 	count = 0;
 	while (str[i] != '\0')
 	{
-		while (str[i] && ft_iswhitespace(str[i])) // str[i]のチェックはいらないが、後でwhitespaceに'\0'が追加されたらのディフェンシブプログラミング用
+		while (str[i] && ft_iswhitespace(str[i]))
 			i++;
-		if (str[i] && !ft_iswhitespace(str[i])) // ここと下は必要
+		if (str[i] && !ft_iswhitespace(str[i]))
 			count++;
 		while (str[i] && !ft_iswhitespace(str[i]))
 			i++;

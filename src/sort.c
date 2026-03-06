@@ -56,11 +56,11 @@ static void	tiny_sort(t_stack *a, t_stack *b, const t_smallest3 sm3)
 		return ;
 	max = utl_max(a->stack, a->count, NULL);
 	if (a->stack[0] == max)
-		ps_perform_op(RA , a, b);
+		ps_perform_op(RA, a, b);
 	else if (a->stack[1] == max)
-		ps_perform_op(RRA , a, b);
+		ps_perform_op(RRA, a, b);
 	if (a->stack[0] > a->stack[1])
-		ps_perform_op(SA , a, b);
+		ps_perform_op(SA, a, b);
 	while (b->count > 0)
 		ps_perform_op(PA, a, b);
 	if (a->count > 3)
@@ -80,20 +80,27 @@ static void	tiny_sort(t_stack *a, t_stack *b, const t_smallest3 sm3)
  * @note erase it from the array so that we can look for the next smallest
  */
 
-static void	get_3min(t_stack a, t_smallest3 *min3)
+static void	get_3min(t_stack a, t_smallest3 *sm3)
 {
 	int	i;
 
-	min3->min1 = utl_min(a.stack, a.count, &i);
+	sm3->min1 = utl_min(a.stack, a.count, &i);
 	ft_memmove(a.stack + i, a.stack + i + 1, (a.count - i - 1) * sizeof(int));
 	a.count--;
-	min3->min2 = utl_min(a.stack, a.count, &i);
+	sm3->min2 = utl_min(a.stack, a.count, &i);
 	ft_memmove(a.stack + i, a.stack + i + 1, (a.count - i - 1) * sizeof(int));
 	a.count--;
-	min3->min3 = utl_min(a.stack, a.count, &i);
+	sm3->min3 = utl_min(a.stack, a.count, &i);
 	ft_memmove(a.stack + i, a.stack + i + 1, (a.count - i - 1) * sizeof(int));
 	a.count--;
 }
+
+/**
+ * @brief Used to bring the head of stack_b back to the top
+ * 
+ * @param b Stack_b that needs rotation
+ * @param a Don't need this but param does so, oh well
+ */
 
 static void	rotateb_tohead(t_stack *b, t_stack *a)
 {

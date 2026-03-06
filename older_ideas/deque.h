@@ -10,20 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef DEQUE_H
+# define DEQUE_H
 
 # include <unistd.h> // write, read
 # include <stdlib.h> // malloc, free, exit
 # include <limits.h> // INT_MAX, INT_MIN
-# define ERROR_STACK ((t_stack))
 
 typedef struct s_deque
 {
 	struct s_deque	*next;
 	struct s_deque	*prev;
-	int		data;
-}			t_deque;
+	int				data;
+}					t_deque;
 
 typedef struct s_endpoints
 {

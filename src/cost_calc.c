@@ -56,6 +56,8 @@ static int	getb_pos(int a_n, t_stack b)
  * @param b_dir Direction for moving b_pos
  * @return t_min_cost Struct with the costs of a&b and their total.
  * @return If dir is negative, cost of a or b becomes negative, too
+ *
+ * @note This guy is initializing the t_min_cost struct
  */
 
 static t_min_cost	get_cost(int a_cost, int b_cost, int a_dir, int b_dir)
@@ -63,7 +65,7 @@ static t_min_cost	get_cost(int a_cost, int b_cost, int a_dir, int b_dir)
 	t_min_cost	costs;
 
 	if (a_dir + b_dir)
-		costs.total = utl_max((int[]){a_cost, b_cost}, 2, NULL);
+		costs.total = utl_max((int []){a_cost, b_cost}, 2, NULL);
 	else
 		costs.total = a_cost + b_cost;
 	costs.a = a_cost * a_dir;

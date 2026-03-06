@@ -41,7 +41,9 @@ static void	rotation(t_stack *stack, int *dest, int *src, int dir)
 		stack->stack[stack->count - 1] = tmp;
 	stack->head_i = (stack->head_i + stack->count + dir) % stack->count;
 	stack->tail_i = (stack->tail_i + stack->count + dir) % stack->count;
-	}
+}
+
+// Pushes head/tail update is complicated, therefore I made a separate function
 
 static void	upd_push_headtail(t_stack *to_stack)
 {
@@ -80,7 +82,7 @@ static void	upd_push_headtail(t_stack *to_stack)
 static void	push(t_stack *from_stack, t_stack *to_stack)
 {
 	int	tmp;
-	
+
 	if (!from_stack || !to_stack || from_stack->count == 0)
 		return ;
 	tmp = from_stack->stack[0];
@@ -148,7 +150,8 @@ void	ps_perform_op(const int op, t_stack *a, t_stack *b)
 		rotation(a, a->stack + 1, a->stack, REVERSE);
 	if (op == RRB || op == RRR)
 		rotation(b, b->stack + 1, b->stack, REVERSE);
-	op_str = (char *[]){"sa", "sb", "ss", "pa", "pb", "ra", "rb", "rr", "rra", "rrb", "rrr", NULL};
+	op_str = (char *[]){"sa", "sb", "ss", "pa", "pb",
+		"ra", "rb", "rr", "rra", "rrb", "rrr", NULL};
 	write(1, op_str[op], ft_strlen(op_str[op]));
 	write(1, "\n", 1);
 }

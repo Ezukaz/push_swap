@@ -6,28 +6,12 @@
 /*   By: Ezukaz <katakaha@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 12:43:54 by katakaha          #+#    #+#             */
-/*   Updated: 2026/03/04 16:12:05 by Ezukaz           ###   ########.fr       */
+/*   Updated: 2026/03/06 18:20:00 by Ezukaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "libft.h"
-
-static int	has_whitespace(const char *str)
-{
-	int	i;
-
-	if (!str)
-		return (0);
-	i = 0;
-	while (str[i])
-	{
-		if (ft_iswhitespace(str[i]))
-			return (1);
-		i++;
-	}
-	return (0);
-}
 
 /**
  * @brief Int checker
@@ -89,39 +73,21 @@ static int	no_duplicate(const int *args, const int arg, const size_t count)
 }
 
 /**
- * @brief Explodes arguments with spaces, and adds all arguments to an array
+ * @brief Safely frees the contents of an array (strings)
  * 
- * @param char** Input args
- * @return t_stack Input args correctly formatted into a struct array with count
- *
- * @note Must validate there is input before passing
+ * @param array Array with contents that needs to be freed
  */
 
-static char	**arg_format(char **argv)
+static void	free_all(char **array)
 {
-	char		**split_args;
-	static char	*res[512];
-	int			i;
-	int			count;
+	int	i;
 
-	i = 1;
-	count = 0;
-	while (argv[i])
+	i = 0;
+	while (array[i] != NULL)
 	{
-		if (has_whitespace(argv[i]))
-		{
-			split_args = ft_split(argv[i]);
-			if (!split_args)
-				return (NULL);
-			while (*split_args)
-				res[count++] = *split_args++;
-		}
-		else
-			res[count++] = argv[i];
+		free(array[i]);
 		i++;
 	}
-	res[count] = NULL;
-	return (res);
 }
 
 /**
@@ -131,33 +97,35 @@ static char	**arg_format(char **argv)
  * @brief Does not handle no arguments. Parent must handle.
  * 
  * @param argv Input arguments
- * @param argc Argument count
+ * @param error Empty stack to signal error
  * @return t_stack Validated struct which contains ints in an array and the
  * @return count of values in the array. On error, an empty struct is returned
  */
 
-t_stack	ps_parse(char **argv)
+t_stack	ps_parse(char **argv, t_stack error)
 {
-	int			conv;
-	int			i;
-	char		**a;
-	t_stack		sanitized_a;
+	int		conv;
+	int		i;
+	t_args	a;
+	t_stack	sanitized_a;
 
 	i = 0;
-	sanitized_a.count = 0;
-	a = arg_format(argv);
-	if (!a)
-		return (ERROR_STACK);
-	while (a[i])
+	utl_init_stack(&sanitized_a);
+	a = ps_arg_format(argv);
+	if (a.err)
+		return (free_all(a.args), error);
+	while (a.args[i] != NULL)
 	{
-		if (!is_int(a[i]))
-			return (ERROR_STACK);
-		conv = utl_atol(a[i]);
+		if (!is_int(a.args[i]))
+			return (free_all(a.args), error);
+		conv = utl_atol(a.args[i]);
 		if (!no_duplicate(sanitized_a.stack, conv, sanitized_a.count))
-			return (ERROR_STACK);
+			return (free_all(a.args), error);
 		sanitized_a.stack[sanitized_a.count++] = conv;
 		i++;
 	}
+	i = 0;
+	free_all(a.args);
 	return (sanitized_a);
 }
 

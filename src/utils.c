@@ -6,7 +6,7 @@
 /*   By: Ezukaz <katakaha@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 18:04:44 by katakaha          #+#    #+#             */
-/*   Updated: 2026/03/05 21:07:32 by Ezukaz           ###   ########.fr       */
+/*   Updated: 2026/03/06 15:38:15 by Ezukaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,22 @@ int	utl_min(const int *array, const size_t size, int *min_i)
 	return (min);
 }
 
+/**
+ * @brief Initiates the values of t_cost_min struct
+ * 
+ * @param min Declared struct
+ */
+
 void	utl_init_min(t_min_cost *min)
 {
 	min->total = INT_MAX;
 	min->a = 0;
 	min->b = 0;
+}
+
+void	utl_init_stack(t_stack *stack)
+{
+	stack->count = 0;
+	stack->head_i = 0;
+	stack->tail_i = 0;
 }
